@@ -17,15 +17,9 @@ class OrderController extends Controller
             $query = Order::query();
             return $dataTables->eloquent($query)
                 ->addColumn('actions', function ($query) {
-
-                    $deleteForm = '';
-                    if ($query->id != 1 && $query->id != auth()->user()->id) {
-                        $deleteForm = '<a href="javascript:void(0)" class="btn-edit" data-id="'.$query->id.'" onclick="delete_order('.$query->id.')" class="btn btn-sm btn-danger delete-confirm">
+                    return '<a href="javascript:void(0)" class="btn-edit" data-id="' . $query->id . '" onclick="delete_order(' . $query->id . ')" class="btn btn-sm btn-danger delete-confirm">
                                 <i class="bi bi-trash"></i>
                             </a>';
-                    }
-
-                    return $deleteForm;
                 })
                 ->rawColumns(['actions'])
                 ->make(true);
